@@ -13,7 +13,7 @@ newpath                 % Start a new path
 2 inch 2 inch lineto    % right side
 1 inch 2 inch lineto    % top side
 stroke                  % Draw the box on the paper
-% showpage                % We're done... eject the page
+showpage                % We're done... eject the page
 
 %*********************************************************************%
 
@@ -35,7 +35,7 @@ stroke                  % Draw the box on the paper
 
 } for                   % Iterate over angles
 
-% showpage
+showpage
 
 %*********************************************************************%
 
@@ -69,7 +69,7 @@ stroke                  % Draw the box on the paper
 
 drawBoxGrid
 
-% showpage
+showpage
 
 %*********************************************************************%
 
@@ -78,20 +78,30 @@ drawBoxGrid
 % Define an operator box which builds a path for a one inch square box
 % Note that box does not draw or fill the box.
 
-0 setgray				% 100% black
-1 setlinewidth			% One point thick lines
-1 inch 1 inch moveto 1 inch 2 inch lineto stroke	% Draw a one inch line
+gsave
+	3 inch 4 inch translate
 
-gsave					% Save a copy of the current settings
-  0.5 setgray			% 50% black
-  1 setlinewidth		% 10 point wide lines
-  2 inch 1 inch moveto 2 inch 2 inch lineto stroke	% Draw a one inch wide line
-  216 1 inch box	                        % Build a square path...
-  0.35 setgray			%    make it a little darker...
-  fill	 				%    and fill it.
-grestore                % Go back to the original settings
+	0 setgray				% 100% black
+	1 setlinewidth			% One point thick lines
+	1 inch 1 inch moveto 1 inch 2 inch lineto stroke	% Draw a one inch line
 
-3 setlinewidth			% Make the box lines wider
-300 1 inch box stroke		% Draw a black box
+	gsave					% Save a copy of the current settings
+	  0.5 setgray			% 50% black
+	  1 setlinewidth		% 10 point wide lines
+	  2 inch 1 inch moveto 2 inch 2 inch lineto stroke	% Draw a one inch wide line
+	  216 1 inch box	                        % Build a square path...
+	  0.35 setgray			%    make it a little darker...
+	  fill	 				%    and fill it.
+	grestore                % Go back to the original settings
+
+	0 20 360 {              
+	  newpath               % Start a new path
+	  gsave                 % Keep rotations temporary
+		rotate              % Rotate by degrees on stack from 'for'
+			300 1 inch box stroke		% Draw a black box
+		stroke
+	  grestore              % Get back the unrotated state
+	} for                   % Iterate over angles
+grestore
 
 showpage
