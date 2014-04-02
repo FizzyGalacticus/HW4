@@ -1,0 +1,97 @@
+%!
+%Dustin Dodson
+%Software Construction
+%Homework #4
+
+%% Draws a one square inch box and inch in from the bottom left
+
+/inch {72 mul} def      % Convert inches->points (1/72 inch)
+
+newpath                 % Start a new path
+1 inch 1 inch moveto    % an inch in from the lower left
+2 inch 1 inch lineto    % bottom side
+2 inch 2 inch lineto    % right side
+1 inch 2 inch lineto    % top side
+stroke                  % Draw the box on the paper
+% showpage                % We're done... eject the page
+
+%*********************************************************************%
+
+% % Example of rotation... draws 36 lines in a circular pattern
+
+/len {72} def
+
+0 10 360 {              % Go from 0 to 360 degrees in 10 degree steps
+  newpath               % Start a new path
+
+  gsave                 % Keep rotations temporary
+    144 144 moveto
+    rotate              % Rotate by degrees on stack from 'for'
+    72 len rlineto
+    stroke
+  grestore              % Get back the unrotated state
+  
+  /len len 3 add def
+
+} for                   % Iterate over angles
+
+% showpage
+
+%*********************************************************************%
+
+% Draw a box at 72, 72 using translate
+
+% operator box: xcoord ycoord box -
+% Creates one inch box at xcoord, ycoord
+/box {
+   newpath
+   moveto
+   1 inch 0 rlineto
+   0 1 inch rlineto
+   -1 inch 0 rlineto
+   closepath
+} def
+
+/drawBoxLine {						% Draws a line of 3 boxes
+	gsave                           % Preserve the old coordinates
+	  translate						% Set origin to corrdinates on the stack
+	  0 inch 0 inch box stroke      % Draw the box at the new origin
+	  1 inch 0 inch box stroke
+	  2 inch 0 inch box stroke
+	grestore                        % Restore the old coordinates
+} def
+
+/drawBoxGrid {						%Draws a 3x3 grid of boxes starting at (4 inch , 4 inch)
+	4 inch 4 inch drawBoxLine
+	4 inch 5 inch drawBoxLine
+	4 inch 6 inch drawBoxLine
+} def
+
+drawBoxGrid
+
+% showpage
+
+%*********************************************************************%
+
+% Demonstrate shading and width in drawing lines and filling shapes
+
+% Define an operator box which builds a path for a one inch square box
+% Note that box does not draw or fill the box.
+
+0 setgray				% 100% black
+1 setlinewidth			% One point thick lines
+1 inch 1 inch moveto 1 inch 2 inch lineto stroke	% Draw a one inch line
+
+gsave					% Save a copy of the current settings
+  0.5 setgray			% 50% black
+  1 setlinewidth		% 10 point wide lines
+  2 inch 1 inch moveto 2 inch 2 inch lineto stroke	% Draw a one inch wide line
+  216 1 inch box	                        % Build a square path...
+  0.35 setgray			%    make it a little darker...
+  fill	 				%    and fill it.
+grestore                % Go back to the original settings
+
+3 setlinewidth			% Make the box lines wider
+300 1 inch box stroke		% Draw a black box
+
+showpage
