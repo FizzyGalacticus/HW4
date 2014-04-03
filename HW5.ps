@@ -1,7 +1,7 @@
 %!
 %Dustin Dodson
 %Software Construction
-%Homework #4
+%Homework #5
 
 %% Draws a one square inch box and inch in from the bottom left
 
@@ -93,11 +93,36 @@ gsave
 	  0.35 setgray			%    make it a little darker...
 	  fill	 				%    and fill it.
 	grestore                % Go back to the original settings
+	
+	1 setlinewidth                          % Make the box lines wider
+	300 72 box stroke                       % Draw a black box
+grestore
+
+showpage
+
+%*********************************************************************%
+
+gsave
+	3 inch 4 inch translate
+
+	0 setgray				% 100% black
+	1 setlinewidth			% One point thick lines
+	1 inch 1 inch moveto 1 inch 2 inch lineto stroke	% Draw a one inch line
+
+	gsave					% Save a copy of the current settings
+	  0.5 setgray			% 50% black
+	  1 setlinewidth		% 10 point wide lines
+	  2 inch 1 inch moveto 2 inch 2 inch lineto stroke	% Draw a one inch wide line
+	  216 1 inch box	                        % Build a square path...
+	  0.35 setgray			%    make it a little darker...
+	  fill	 				%    and fill it.
+	grestore                % Go back to the original settings
 
 	0 20 360 {              
 	  newpath               % Start a new path
 	  gsave                 % Keep rotations temporary
 		rotate              % Rotate by degrees on stack from 'for'
+			1 setlinewidth
 			300 1 inch box stroke		% Draw a black box
 		stroke
 	  grestore              % Get back the unrotated state
