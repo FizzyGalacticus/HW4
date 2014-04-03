@@ -2,6 +2,32 @@
 
 /inch {72 mul} def
 
-newpath
-2 inch 2 inch 1 inch 0 360 arc closepath stroke
+/circle {
+	newpath
+		0 360 arc closepath
+} def
+
+/smile {
+	gsave
+		.4 inch 0 180 arcn stroke
+	grestore
+} def
+
+/smileyFace {
+gsave
+	4 inch 4 inch 1 inch circle stroke
+	4 inch 3.75 inch smile
+	3.65 inch 4.4 inch .12 inch circle stroke
+	4.35 inch 4.4 inch .12 inch circle stroke
+	gsave
+		newpath
+		3.65 inch 4.35 inch .05 inch circle closepath fill
+		newpath
+		4.35 inch 4.35 inch .05 inch circle closepath fill
+	grestore
+grestore
+} def
+
+smileyFace
+
 showpage

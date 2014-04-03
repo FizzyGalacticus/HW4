@@ -13,7 +13,7 @@ newpath                 % Start a new path
 2 inch 2 inch lineto    % right side
 1 inch 2 inch lineto    % top side
 stroke                  % Draw the box on the paper
-% showpage                % We're done... eject the page
+showpage                % We're done... eject the page
 
 %*********************************************************************%
 
@@ -35,7 +35,7 @@ stroke                  % Draw the box on the paper
 
 } for                   % Iterate over angles
 
-% showpage
+showpage
 
 %*********************************************************************%
 
@@ -69,7 +69,7 @@ stroke                  % Draw the box on the paper
 
 drawBoxGrid
 
-% showpage
+showpage
 
 %*********************************************************************%
 
@@ -103,5 +103,37 @@ gsave
 	  grestore              % Get back the unrotated state
 	} for                   % Iterate over angles
 grestore
+
+showpage
+
+%*********************************************************************%
+
+/circle {
+	newpath
+		0 360 arc closepath
+} def
+
+/smile {
+	gsave
+		.4 inch 0 180 arcn stroke
+	grestore
+} def
+
+/smileyFace {
+gsave
+	4.25 inch 5.5 inch 1 inch circle stroke
+	4.25 inch 5.25 inch smile
+	3.95 inch 5.9 inch .12 inch circle stroke
+	4.6 inch 5.9 inch .12 inch circle stroke
+	gsave
+		newpath
+		3.95 inch 5.85 inch .05 inch circle closepath fill
+		newpath
+		4.6 inch 5.85 inch .05 inch circle closepath fill
+	grestore
+grestore
+} def
+
+smileyFace
 
 showpage
